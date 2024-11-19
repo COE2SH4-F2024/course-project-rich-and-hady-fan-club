@@ -1,3 +1,4 @@
 # Ignore all the object files
 *.o
 *.exe
+.vscode
