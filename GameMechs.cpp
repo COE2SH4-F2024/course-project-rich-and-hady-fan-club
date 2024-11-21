@@ -10,6 +10,25 @@ GameMechs::GameMechs()
 
     boardSizeX = 20;
     boardSizeY = 10;
+
+    //frame, putting in spaces and #'s in a 2d matrix
+    for (int i = 0; i < boardSizeY; i++)
+    {
+        for (int j = 0; j < boardSizeX; j++)
+        {
+            if ((i > 0 && i < boardSizeY - 1) && (j > 0 && j < boardSizeX - 1))
+            {
+                frame[i][j] = ' ';
+                
+            }
+            else
+            {
+                //only put in a # around the boarder of the frame
+                
+                frame[i][j] = '#';
+            }
+        }
+    }
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -21,6 +40,25 @@ GameMechs::GameMechs(int boardX, int boardY)
 
     boardSizeX = boardX;
     boardSizeY = boardY;
+
+    //frame, putting in spaces and #'s in a 2d matrix
+    for (int i = 0; i < boardSizeY; i++)
+    {
+        for (int j = 0; j < boardSizeX; j++)
+        {
+            if ((i > 0 && i < boardSizeY - 1) && (j > 0 && j < boardSizeX - 1))
+            {
+                frame[i][j] = ' ';
+                
+            }
+            else
+            {
+                //only put in a # around the boarder of the frame
+                
+                frame[i][j] = '#';
+            }
+        }
+    }
 }
 
 // do you need a destructor?
@@ -36,7 +74,7 @@ bool GameMechs::getExitFlagStatus() const
 
 bool GameMechs::getLoseFlagStatus() const
 {
-
+    return loseFlag;
 }
     
 
@@ -49,12 +87,12 @@ char GameMechs::getInput()
 
 int GameMechs::getScore() const
 {
-
+    return score;
 }
 
 void GameMechs::incrementScore()
 {
-    
+    score = score + 1;
 }
 
 int GameMechs::getBoardSizeX() const
@@ -70,22 +108,34 @@ int GameMechs::getBoardSizeY() const
 
 void GameMechs::setExitTrue()
 {
-
+    exitFlag = true;
 }
 
 void GameMechs::setLoseFlag()
 {
-    
+    loseFlag = true;
 }
 
 void GameMechs::setInput(char this_input)
 {
-
+    input = this_input;
 }
 
 void GameMechs::clearInput()
 {
-
+    //makes input null
+    input = 0;
 }
 
 // More methods should be added here
+//assigning  the 2d matrix frame value 
+void GameMechs::setFrame(int x, int y, char symbol)
+{
+    frame[y][x] = symbol;
+}
+
+//getter for the 2d frame
+char GameMechs::getFrame(int x, int y)
+{
+    return frame[y][x];
+}
