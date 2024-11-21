@@ -9,7 +9,7 @@ Player::Player(GameMechs* thisGMRef)
     // more actions to be included
     playerPos.pos->x = mainGameMechsRef->getBoardSizeX()/2;
     playerPos.pos->y = mainGameMechsRef->getBoardSizeY()/2;
-    playerPos.symbol = '@';
+    playerPos.symbol = '*';
 }
 
 
@@ -61,6 +61,24 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
+    switch (myDir)
+    {
+    case UP:
+        playerPos.pos->y++;
+        break;
+    case DOWN:
+        playerPos.pos->y--;
+        break;
+    case LEFT:
+        playerPos.pos->x--;
+        break;
+    case RIGHT:
+        playerPos.pos->x++; 
+        break;
+    default:
+        break;
+    }
+
 }
 
 // More methods to be added
