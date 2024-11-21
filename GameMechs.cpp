@@ -44,7 +44,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     //frame, putting in spaces and #'s in a 2d matrix
     for (int i = 0; i < boardSizeY; i++)
     {
-        for (int j = 0; j < boardSizeX; j++)
+       for (int j = 0; j < boardSizeX; j++)
         {
             if ((i > 0 && i < boardSizeY - 1) && (j > 0 && j < boardSizeX - 1))
             {
@@ -83,6 +83,7 @@ char GameMechs::getInput()
     if (MacUILib_hasChar() != 0){
         input = MacUILib_getChar();
     }
+    return input;
 }
 
 int GameMechs::getScore() const
