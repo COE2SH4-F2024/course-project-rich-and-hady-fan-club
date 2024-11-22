@@ -20,9 +20,6 @@ class GameMechs
         int boardSizeX;
         int boardSizeY;
 
-        //frame of board
-        char **frame;
-
         objPos food;
 
     public:
@@ -46,8 +43,7 @@ class GameMechs
         void incrementScore();
         
         // More methods should be added here
-        void setFrame(int x, int y, char symbol);
-        char getFrame(int x, int y);
+        
 };
 
 #endif

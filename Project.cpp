@@ -1,7 +1,7 @@
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
-
+#include "GameMechs.h"
 #include "Player.h"
 
 using namespace std;
@@ -18,13 +18,10 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-
-
 int main(void)
 {
-
     Initialize();
-
+    
     while(myGM->getExitFlagStatus() == false)  
     {
         GetInput();
@@ -46,18 +43,17 @@ void Initialize(void)
     //make new GameMechanic object
     myGM = new GameMechs();
     myPlayer = new Player(myGM);
-
 }
 
 void GetInput(void)
 {
     //collecting input ASCII character into GameMechanics object
     myGM->setInput(myGM->getInput());
+
 }
 
 void RunLogic(void)
 {
-    myGM->getInput();
     //if its the esc key
     if (myGM->getInput() == 27)
     {
@@ -76,20 +72,33 @@ void DrawScreen(void)
 {
 
     MacUILib_clearScreen();  
+    
 
     objPos playerPos = myPlayer->getPlayerPos();
     //call setFrame() to put the player symbol into the frame at the right coordinates
-    myGM->setFrame(myPlayer->getPlayerPos().pos->x, myPlayer->getPlayerPos().pos->y, myPlayer->getPlayerPos().symbol);
+    // myGM->setFrame(myPlayer->getPlayerPos().pos->x, myPlayer->getPlayerPos().pos->y, myPlayer->getPlayerPos().symbol);
 
     //print gameboard with frame and player
     for (int i = 0; i < myGM->getBoardSizeY(); i++)
     {
-        for (int j = 0; j < myGM->getBoardSizeX(); j++)
+       for (int j = 0; j < myGM->getBoardSizeX(); j++)
         {
-            MacUILib_printf("%c", myGM->getFrame(j, i));
+            if (i == playerPos.pos->y && j == playerPos.pos->x){
+                MacUILib_printf("%c", playerPos.symbol);
+            }
+            else if ((i > 0 && i < myGM->getBoardSizeY() - 1) && (j > 0 && j < myGM->getBoardSizeX() - 1))
+            {
+                MacUILib_printf(" ");
+                
+            }
+            else
+            {
+                //only put in a # around the boarder of the frame   
+                MacUILib_printf("#");
+            }
         }
+        MacUILib_printf("\n");
     }
-    MacUILib_printf("Player [x, y, sym] = [%d, %d, %c]\n", playerPos.pos->x, playerPos.pos->y, playerPos.symbol);  
 }
 
 void LoopDelay(void)
