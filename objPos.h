@@ -19,7 +19,8 @@ class objPos
         
         // Respect the rule of six / minimum four
         // [TODO] Implement the missing special member functions to meet the minimum four rule
-        //no need for destructor 
+        //destructor
+        ~objPos();
 
         //copy constructor
         objPos(const objPos &o);
