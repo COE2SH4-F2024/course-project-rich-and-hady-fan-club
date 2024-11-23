@@ -19,6 +19,50 @@ objPosArrayList::objPosArrayList()
 
 }
 
+// Copy Constructor
+objPosArrayList::objPosArrayList(const objPosArrayList &other)
+{
+    // Copy the size and capacity
+    listSize = other.listSize;
+    arrayCapacity = other.arrayCapacity;
+
+    // Allocate memory for the array
+    aList = new objPos[arrayCapacity];
+
+    // Deep copy each objPos object in the array
+    for (int i = 0; i < listSize; i++) {
+        aList[i] = objPos(other.aList[i]);
+    }
+}
+
+
+//Copy Assignmnet Operator
+objPosArrayList& objPosArrayList::operator=(const objPosArrayList& other) {
+    // Self-assignment check
+    if (this == &other) {
+        return *this;
+    }
+
+    // Clean up existing resources
+    delete[] aList;
+
+    // Copy listSize and arrayCapacity
+    listSize = other.listSize;
+    arrayCapacity = other.arrayCapacity;
+
+    // Allocate new memory for aList
+    aList = new objPos[arrayCapacity];
+
+    // Deep copy the contents of other.aList
+    for (int i = 0; i < listSize; i++) {
+        aList[i].pos->x = other.aList[i].pos->x;
+        aList[i].pos->y = other.aList[i].pos->y;
+        aList[i].symbol = other.aList[i].symbol;
+    }
+
+    return *this;
+}
+
 // Destructor
 objPosArrayList::~objPosArrayList()
 {
