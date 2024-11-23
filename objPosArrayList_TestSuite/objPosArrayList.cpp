@@ -14,7 +14,7 @@ objPosArrayList::objPosArrayList()
     for (int i = 0; i < arrayCapacity; i++) {
         aList[i].pos->x = 0;
         aList[i].pos->y = 0;
-        aList[i].symbol = '*';
+        aList[i].symbol = '@';
     }
 
 }
