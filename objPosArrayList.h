@@ -16,6 +16,12 @@ class objPosArrayList
         objPosArrayList();
         ~objPosArrayList();
 
+        // Copy Operator
+        objPosArrayList::objPosArrayList();
+
+        // Copy Assignment Operator
+        objPosArrayList::objPosArrayList(const objPosArrayList &other);
+
         int getSize() const;
         void insertHead(objPos thisPos);
         void insertTail(objPos thisPos);
