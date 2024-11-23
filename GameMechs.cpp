@@ -8,8 +8,8 @@ GameMechs::GameMechs()
     loseFlag = false;
     score = 0;
 
-    boardSizeX = 20;
-    boardSizeY = 10;
+    boardSizeX = 30;
+    boardSizeY = 15;
 
     // //frame, putting in spaces and #'s in a 2d matrix
     // for (int i = 0; i < boardSizeY; i++)
