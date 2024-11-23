@@ -11,6 +11,9 @@ using namespace std;
 Player *myPlayer; //Global pointer meant to instantiate a player object on the heap
 GameMechs *myGM;
 
+// testing 2b
+//static int testing = 1;
+
 void Initialize(void);
 void GetInput(void);
 void RunLogic(void);
@@ -43,27 +46,37 @@ void Initialize(void)
     //make new GameMechanic object
     myGM = new GameMechs();
     myPlayer = new Player(myGM);
+
+    //seed the random integer generation function with current time
+    srand(time(NULL));
+
 }
 
 void GetInput(void)
 {
     //collecting input ASCII character into GameMechanics object
-    myGM->setInput(myGM->getInput());
+    myGM->collectAsyncInput();
 
 }
 
 void RunLogic(void)
 {
-    //if its the esc key
-    if (myGM->getInput() == 27)
+    //for testing 2b
+    /*
+    if (testing == 1)
     {
-        myGM->setExitTrue();
+         myGM->generateFood(myPlayer->getPlayerPos());
     }
-    else 
+    testing++;
+
+    if (testing == 20)
     {
-        myPlayer->updatePlayerDir();
-        myPlayer->movePlayer();
+        myGM->generateFood(myPlayer->getPlayerPos());
     }
+    */
+   
+    myPlayer->updatePlayerDir();
+    myPlayer->movePlayer();
     //clear input
     myGM->clearInput();
 }
@@ -73,20 +86,30 @@ void DrawScreen(void)
 
     MacUILib_clearScreen();  
     
-
+    //storing coordinates in variables
     objPos playerPos = myPlayer->getPlayerPos();
-    //call setFrame() to put the player symbol into the frame at the right coordinates
-    // myGM->setFrame(myPlayer->getPlayerPos().pos->x, myPlayer->getPlayerPos().pos->y, myPlayer->getPlayerPos().symbol);
+    objPos foodPos = myGM->getFoodPos();
 
+    int boardX = myGM->getBoardSizeX();
+    int boardY = myGM->getBoardSizeY();
+
+    //i = row, j = col
     //print gameboard with frame and player
-    for (int i = 0; i < myGM->getBoardSizeY(); i++)
+    for (int i = 0; i < boardY; i++)
     {
-       for (int j = 0; j < myGM->getBoardSizeX(); j++)
+       for (int j = 0; j < boardX; j++)
         {
+            //print player 
             if (i == playerPos.pos->y && j == playerPos.pos->x){
                 MacUILib_printf("%c", playerPos.symbol);
             }
-            else if ((i > 0 && i < myGM->getBoardSizeY() - 1) && (j > 0 && j < myGM->getBoardSizeX() - 1))
+            //print food
+            else if (i == foodPos.pos->y && j == foodPos.pos->x)
+            {
+                MacUILib_printf("%c", foodPos.symbol);
+            }
+            //blank space in gameboard
+            else if ((i > 0 && i < boardY - 1) && (j > 0 && j < boardX - 1))
             {
                 MacUILib_printf(" ");
                 
@@ -99,6 +122,7 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
+ 
 }
 
 void LoopDelay(void)
