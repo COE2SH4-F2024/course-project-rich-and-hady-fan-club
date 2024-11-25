@@ -22,6 +22,9 @@ objPosArrayList::objPosArrayList()
     }
 
 }
+
+//taking out for now
+/*
 // Copy Constructor
 objPosArrayList::objPosArrayList(const objPosArrayList &other)
 {
@@ -65,6 +68,7 @@ objPosArrayList& objPosArrayList::operator=(const objPosArrayList& other) {
 
     return *this;
 }
+*/
 
 // Destructor
 objPosArrayList::~objPosArrayList()

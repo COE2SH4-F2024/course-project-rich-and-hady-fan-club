@@ -112,6 +112,8 @@ void Player::movePlayer()
         break;
     }
 
+    playerPosList->insertHead(tempHead);
+
     // ITERATION 3 - Add what happens if food is eaten (do not remove snake tail if food eaten)
     // If head is at food (collision) after the movement (switch case)
     if(playerPosList->getHeadElement().getObjPos().pos->x == mainGameMechsRef->getFoodPos().getObjPos().pos->x && playerPosList->getHeadElement().getObjPos().pos->y == mainGameMechsRef->getFoodPos().getObjPos().pos->y){
@@ -127,7 +129,7 @@ void Player::movePlayer()
     }
 
     // check if the snake collided with itself
-    for (int i = 0; i < playerPosList->getSize(); i++){
+    for (int i = 1; i < playerPosList->getSize(); i++){
         objPos bodyPos = playerPosList->getElement(i);
         // check if the body is overlapping anywhere to see if they have lost the game
         if (tempHead.pos->x == bodyPos.pos->x && tempHead.pos->y == bodyPos.pos->y){

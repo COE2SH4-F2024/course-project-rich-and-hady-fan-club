@@ -112,13 +112,13 @@ void DrawScreen(void)
     {
        for (int j = 0; j < boardX; j++)
         {
-            int check = 0;
+            
             //print player - iterate through each segment of the snake
             for (int k = 0; k < playerSize; k++){
                 objPos thisSeg = playerPos->getElement(k);
+
                 // If i and j match the position of the segment, the body is printed and the check increments 
                 if (i == thisSeg.pos->y && j == thisSeg.pos->x){
-                    check++;
                     MacUILib_printf("%c", thisSeg.symbol);
                     break;
                 }
@@ -132,15 +132,16 @@ void DrawScreen(void)
                 MacUILib_printf("%c", foodPos.symbol);
             }
             //blank space in gameboard (prints based on above nested for loops - where check increments)
-            else if (check == 0)
+            else if (i == 0 || i == boardY - 1 || j == 0 || j == boardX - 1)
             {
-                MacUILib_printf(" ");
+                //only put in a # around the boarder of the frame   
+                MacUILib_printf("#");
                 
             }
             else
             {
-                //only put in a # around the boarder of the frame   
-                MacUILib_printf("#");
+                MacUILib_printf(" ");
+               
             }
         }
         MacUILib_printf("\n");

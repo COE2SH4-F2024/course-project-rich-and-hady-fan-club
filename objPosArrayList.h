@@ -17,10 +17,10 @@ class objPosArrayList
         ~objPosArrayList();
 
         // Copy Operator
-        objPosArrayList(const objPosArrayList &other);
+        //objPosArrayList(const objPosArrayList &other);
 
         // Copy Assignment Operator
-        objPosArrayList& operator=(const objPosArrayList& other);
+        //objPosArrayList& operator=(const objPosArrayList& other);
 
         int getSize() const;
         void insertHead(objPos thisPos);
