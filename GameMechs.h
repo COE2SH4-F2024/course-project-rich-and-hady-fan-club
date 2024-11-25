@@ -46,7 +46,7 @@ class GameMechs
         void collectAsyncInput();
 
         //iteration 1b
-        void generateFood(objPos blockOff);
+        void generateFood(objPosArrayList* blockOff);
         objPos getFoodPos() const;
 };
 
