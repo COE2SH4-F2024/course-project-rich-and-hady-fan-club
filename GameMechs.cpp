@@ -113,7 +113,7 @@ void GameMechs::generateFood(objPosArrayList* blockOff)
     srand(time(NULL));
     bool done = false;
     int size = blockOff->getSize();
-    int x, y;
+    int x, y = 0;
 
     while (done == false)
     {
@@ -126,7 +126,7 @@ void GameMechs::generateFood(objPosArrayList* blockOff)
         // check if coordinates overlap with player position
         for (int i = 0; i < size; i++){
             //set food coordinates if it isnt the player position coordinates
-            if (x!= blockOff->getElement(i).pos->x && y != blockOff->getElement(i).pos->y)
+            if (x== blockOff->getElement(i).pos->x && y == blockOff->getElement(i).pos->y)
             {
                 done = false;
             }

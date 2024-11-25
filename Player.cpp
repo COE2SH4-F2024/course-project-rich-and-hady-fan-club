@@ -12,7 +12,10 @@ Player::Player(GameMechs* thisGMRef)
     playerPosList = new objPosArrayList();
 
     //storing the position in the head element of the snake
-    objPos headPos(mainGameMechsRef->getBoardSizeX()/2+1, mainGameMechsRef->getBoardSizeX()/2+1, '*');
+    
+    objPos headPos(14, 7, '*');
+
+    //objPos headPos((mainGameMechsRef->getBoardSizeX())/2+1, (mainGameMechsRef->getBoardSizeX())/2+1, '*');
     // more actions to be included
 
     //putting head into array list
@@ -134,7 +137,7 @@ void Player::movePlayer()
         // check if the body is overlapping anywhere to see if they have lost the game
         if (tempHead.pos->x == bodyPos.pos->x && tempHead.pos->y == bodyPos.pos->y){
             mainGameMechsRef->setLoseFlag();
-            mainGameMechsRef->setExitTrue();
+           
         }
     }
 

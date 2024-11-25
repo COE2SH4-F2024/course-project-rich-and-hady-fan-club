@@ -112,20 +112,19 @@ void DrawScreen(void)
     {
        for (int j = 0; j < boardX; j++)
         {
-            
+            int check;
             //print player - iterate through each segment of the snake
             for (int k = 0; k < playerSize; k++){
                 objPos thisSeg = playerPos->getElement(k);
-
+                check = 0;
                 // If i and j match the position of the segment, the body is printed and the check increments 
                 if (i == thisSeg.pos->y && j == thisSeg.pos->x){
                     MacUILib_printf("%c", thisSeg.symbol);
+                    check++;
                     break;
                 }
                 
             }
-
-
             //print food
             if (i == foodPos.pos->y && j == foodPos.pos->x)
             {
@@ -138,11 +137,13 @@ void DrawScreen(void)
                 MacUILib_printf("#");
                 
             }
-            else
+            else if (check == 0)
+            //else if ((i > 0 && i < boardY - 1) && (j > 0 && j < boardX - 1))
             {
                 MacUILib_printf(" ");
                
             }
+
         }
         MacUILib_printf("\n");
     }
@@ -151,10 +152,11 @@ void DrawScreen(void)
     MacUILib_printf("Score: %d\n", myGM->getScore());
     
     // Check if game is over
-    if (myGM->getLoseFlagStatus()){
+    if (myGM->getLoseFlagStatus() == true){
         MacUILib_printf("YOU LOSE!");
+        myGM->setExitTrue();
     }
-    else if(myGM->getExitFlagStatus()){
+    else if(myGM->getExitFlagStatus() == true){
         MacUILib_printf("GAME OVER!");
     }
  
