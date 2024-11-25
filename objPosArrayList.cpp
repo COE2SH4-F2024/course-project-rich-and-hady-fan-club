@@ -6,11 +6,15 @@
 
 objPosArrayList::objPosArrayList()
 {
-
+    // Default to empty array  list
     listSize = 0;
+    // Capacity is predefined in manual (memory on heap)
     arrayCapacity = ARRAY_MAX_CAP;
+
+    // Create new array list
     aList = new objPos[arrayCapacity];
 
+    // Iterate through and fill with default
     for (int i = 0; i < arrayCapacity; i++) {
         aList[i].pos->x = 0;
         aList[i].pos->y = 0;
@@ -18,7 +22,6 @@ objPosArrayList::objPosArrayList()
     }
 
 }
-
 // Copy Constructor
 objPosArrayList::objPosArrayList(const objPosArrayList &other)
 {
@@ -77,47 +80,47 @@ int objPosArrayList::getSize() const
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-
-
-    if(listSize == arrayCapacity){
-        return;
+    // Checks to see if the arrayCapacity has been hit
+    if(listSize != arrayCapacity){
+        // Move everything over 1 index to the right
+        for(int i = listSize; i > 0; i--){
+            aList[i] = aList[i-1];
+        }
+        // Add head element
+        aList[0] = thisPos;
+        // increase list size
+        listSize++;
     }
-
-    for(int i = listSize; i > 0; i--){
-        aList[i] = aList[i-1];
-    }
-    aList[0] = thisPos;
-
-    listSize++;
-
 
 }
 
 void objPosArrayList::insertTail(objPos thisPos)
 {
-
+    // Insert at end of array list
     aList[listSize++] = thisPos;
 
 }
 
 void objPosArrayList::removeHead()
-{
-    if(listSize ==0){
-        return;
+{   
+    // Checks if there is a head
+    if(listSize != 0){
+        // Move everything one to the left
+        for(int i = 0; i < listSize-1; i++){
+            aList[i] = aList[i+1];
+        }
+        // Decrement list size
+        listSize--;
     }
-
-    for(int i = 0; i < listSize-1; i++){
-        aList[i] = aList[i+1];
-    }
-    listSize--;
 }
 
 void objPosArrayList::removeTail()
 {
-    if(listSize ==0){
-        return;
+    // Remove the last element
+    if(listSize != 0){
+        listSize--;
     }
-    listSize--;
+
 }
 
 objPos objPosArrayList::getHeadElement() const
