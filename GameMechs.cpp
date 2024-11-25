@@ -106,30 +106,36 @@ void GameMechs::clearInput()
 // More methods should be added here
 
 //get from PPA3
-void GameMechs::generateFood(objPos blockOff)
+void GameMechs::generateFood(objPosArrayList* blockOff)
 {
     //you only need to block off the player position for now... later will have to upgrade to iteration 3 (arrayList)
+    //seed the random integer generation function with current time
+    srand(time(NULL));
     bool done = false;
+    int size = blockOff->getSize();
+    int x, y;
 
     while (done == false)
     {
+        done = true;
         //randomly generated x and y coordinates for food
-        int x, y;
         x = rand()%(boardSizeX-2) +1;
         y = rand()%(boardSizeY-2) +1;
         char sym = 'o';
 
-        //set food coordinates if it isnt the player position coordinates
-        if (x!= blockOff.pos->x && y != blockOff.pos->y)
-        {
-            done = true;
-            food.setObjPos(x, y, sym);
+        // check if coordinates overlap with player position
+        for (int i = 0; i < size; i++){
+            //set food coordinates if it isnt the player position coordinates
+            if (x!= blockOff->getElement(i).pos->x && y != blockOff->getElement(i).pos->y)
+            {
+                done = false;
+            }
         }
     }
+    food.setObjPos(x, y, 'o');
 }
 
 objPos GameMechs::getFoodPos() const
 {
     return food;
 }
-
