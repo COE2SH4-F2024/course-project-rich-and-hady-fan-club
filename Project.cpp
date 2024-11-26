@@ -152,12 +152,11 @@ void DrawScreen(void)
     MacUILib_printf("Score: %d\n", myGM->getScore());
     
     // Check if game is over
-    if (myGM->getLoseFlagStatus() == true){
-        MacUILib_printf("YOU LOSE!");
-        myGM->setExitTrue();
+    if (myGM->getLoseFlagStatus()){
+        MacUILib_printf("YOU LOSE!\n");
     }
-    else if(myGM->getExitFlagStatus() == true){
-        MacUILib_printf("GAME OVER!");
+    else if(myGM->getExitFlagStatus()){
+        MacUILib_printf("GAME EXITS!\n");
     }
  
 }
@@ -170,7 +169,6 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
 
     delete myPlayer;
     delete myGM;
