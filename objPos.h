@@ -1,3 +1,5 @@
+//the objPos class defines the x and y coordinates, and a symbol for a given object
+
 #ifndef OBJPOS_H
 #define OBJPOS_H
 
@@ -28,10 +30,11 @@ class objPos
         //copy assignment operator
         objPos& operator=(const objPos &o);
 
-
+        //setters
         void setObjPos(objPos o);        
         void setObjPos(int xPos, int yPos, char sym);  
 
+    //getters
         objPos getObjPos() const;
         char getSymbol() const;
         char getSymbolIfPosEqual(const objPos* refPos) const;

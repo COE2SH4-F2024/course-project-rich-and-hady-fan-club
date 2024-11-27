@@ -1,3 +1,5 @@
+//GameMechs class defining the frame, exiting flags, and food of the game
+
 #ifndef GAMEMECHS_H
 #define GAMEMECHS_H
 
@@ -27,6 +29,7 @@ class GameMechs
         GameMechs(int boardX, int boardY);
         ~GameMechs(); // is this one needed at all? Why or why not?
         
+        //getter and setter methods for each variable
         bool getExitFlagStatus() const; 
         void setExitTrue();
         bool getLoseFlagStatus() const;
@@ -46,8 +49,9 @@ class GameMechs
         void collectAsyncInput();
 
         //iteration 1b
+        //generating food in random position on the board that isn't the snake body position 
         void generateFood(objPosArrayList* blockOff);
-        objPos getFoodPos() const;
+        objPos getFoodPos() const; //getter method of food position
 };
 
 #endif

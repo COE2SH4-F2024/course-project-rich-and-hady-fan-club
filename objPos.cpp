@@ -1,5 +1,6 @@
 #include "objPos.h"
 
+//default constructor
 objPos::objPos()
 {
     pos = new Pos;
@@ -8,6 +9,7 @@ objPos::objPos()
     symbol = 0; //NULL
 }
 
+//custom constructor that specifies the x and y coordinates, and symbol
 objPos::objPos(int xPos, int yPos, char sym)
 {
     pos = new Pos;
@@ -50,6 +52,7 @@ objPos& objPos::operator=(const objPos &o)
     
 }
 
+//setter to set a specified x and y coordinate, and symbol by taking in an objPos object
 void objPos::setObjPos(objPos o)
 {
     pos->x = o.pos->x;
@@ -57,6 +60,7 @@ void objPos::setObjPos(objPos o)
     symbol = o.symbol;
 }
 
+//setter to set a specified x and y coordinate, and symbol
 void objPos::setObjPos(int xPos, int yPos, char sym)
 {
     pos->x = xPos;
@@ -64,6 +68,7 @@ void objPos::setObjPos(int xPos, int yPos, char sym)
     symbol = sym;
 }
 
+//getter to get objPos values
 objPos objPos::getObjPos() const
 {
     objPos returnPos;
@@ -74,16 +79,20 @@ objPos objPos::getObjPos() const
     return returnPos;
 }
 
+//getter method that returns the symbol
 char objPos::getSymbol() const
 {
     return symbol;
 }
 
+//method that returns true or false if two objPos object's coordinates are equal
 bool objPos::isPosEqual(const objPos* refPos) const
 {
     return (refPos->pos->x == pos->x && refPos->pos->y == pos->y);
 }
 
+//getter that returns the symbool if two objPos object's coordinates are equal
+//otherwise, returns 0
 char objPos::getSymbolIfPosEqual(const objPos* refPos) const
 {
     if(isPosEqual(refPos))

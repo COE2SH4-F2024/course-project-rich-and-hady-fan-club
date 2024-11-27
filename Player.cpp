@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "GameMechs.h"
 
-
+//default constructor
 Player::Player(GameMechs* thisGMRef)
 {
     //taking in GameMechs pointers
@@ -11,18 +11,14 @@ Player::Player(GameMechs* thisGMRef)
     //making new objPosArrayList
     playerPosList = new objPosArrayList();
 
-    //storing the position in the head element of the snake
-    
-    //objPos headPos(14, 7, '*');
+    //snake head start in middle of the game board
+    objPos headPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, playerPosList->getElement(0).getSymbol());
 
-    objPos headPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeX()/2, '*');
-    // more actions to be included
-
-    //putting head into array list
+    //putting head into array list (at front)
     playerPosList->insertHead(headPos);
 }
 
-
+//deconstructor
 Player::~Player()
 {
     // delete any heap members here
@@ -35,6 +31,7 @@ objPosArrayList* Player::getPlayerPos() const
     return playerPosList;
 }
 
+//this method takes in the user input (WASD) and assigns the corresponding direction 
 void Player::updatePlayerDir()
 {
     char input = mainGameMechsRef->getInput();
@@ -74,9 +71,9 @@ void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
     //get all info about head element
-    objPos tempHead(playerPosList->getHeadElement().getObjPos().pos->x, playerPosList->getHeadElement().getObjPos().pos->y, '*');
+    objPos tempHead(playerPosList->getHeadElement().getObjPos().pos->x, playerPosList->getHeadElement().getObjPos().pos->y, playerPosList->getElement(0).getSymbol());
     
-    //head moves position
+    //head moves position according to the specified direction from the user input
     switch (myDir)
     {
     case UP:
@@ -118,7 +115,7 @@ void Player::movePlayer()
     playerPosList->insertHead(tempHead);
 
     // ITERATION 3 - Add what happens if food is eaten (do not remove snake tail if food eaten)
-    // If head is at food (collision) after the movement (switch case)
+    // If head is at food (there is a collision) after the movement (switch case)
     if(playerPosList->getHeadElement().getObjPos().pos->x == mainGameMechsRef->getFoodPos().getObjPos().pos->x && playerPosList->getHeadElement().getObjPos().pos->y == mainGameMechsRef->getFoodPos().getObjPos().pos->y){
         
         //generate new food
@@ -128,6 +125,7 @@ void Player::movePlayer()
     }
     else
     {
+        //no food collision, remove tail for snake body movement
         playerPosList->removeTail();
     }
 
@@ -136,6 +134,7 @@ void Player::movePlayer()
         objPos bodyPos = playerPosList->getElement(i);
         // check if the body is overlapping anywhere to see if they have lost the game
         if (tempHead.pos->x == bodyPos.pos->x && tempHead.pos->y == bodyPos.pos->y){
+            //set flags to true to end game
             mainGameMechsRef->setLoseFlag();
             mainGameMechsRef->setExitTrue();
         }

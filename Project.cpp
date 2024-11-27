@@ -1,3 +1,5 @@
+//this is the main project file of the snake game
+
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
@@ -7,14 +9,13 @@
 
 using namespace std;
 
+//time delay
 #define DELAY_CONST 100000
 
+//global pointers
 Player *myPlayer; //Global pointer meant to instantiate a player object on the heap
 GameMechs *myGM;
 objPosArrayList *myArrayList;
-
-// testing 2b
-//static int testing = 1;
 
 void Initialize(void);
 void GetInput(void);
@@ -23,10 +24,12 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
+//main() to run game
 int main(void)
 {
     Initialize();
     
+    //loop is terminated when the exit flag is true
     while(myGM->getExitFlagStatus() == false)  
     {
         GetInput();
@@ -40,6 +43,7 @@ int main(void)
 }
 
 
+//method that initializes variables
 void Initialize(void)
 {
     MacUILib_init();
@@ -47,6 +51,8 @@ void Initialize(void)
 
     //make new GameMechanic object
     myGM = new GameMechs();
+
+    //puts GameMech's object into Player class
     myPlayer = new Player(myGM);
     myArrayList = new objPosArrayList();
 
@@ -64,27 +70,10 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    //for testing 2b
-    // if (testing == 1)
-    // {
-    //      myGM->generateFood(myPlayer->getPlayerPos());
-    // }
-    // testing++;
+    //call methods to move snake
+    myPlayer->updatePlayerDir();
+    myPlayer->movePlayer();
 
-    // if (testing == 20)
-    // {
-    //     myGM->generateFood(myPlayer->getPlayerPos());
-    // }
-    
-    // Check if game is exiting
-    if (myGM->getInput() == 27){
-        myGM->setExitTrue();
-    } 
-    // Move player according to input
-    else {
-        myPlayer->updatePlayerDir();
-        myPlayer->movePlayer();
-    }
     // save head element position
     objPos head = myPlayer->getPlayerPos()->getHeadElement();
    
@@ -92,9 +81,10 @@ void RunLogic(void)
     myGM->clearInput();
 }
 
+//method prints the a frame of the snake game in action
 void DrawScreen(void)
 {
-
+    //clears the previous frame
     MacUILib_clearScreen();  
     
     //storing coordinates in variables
@@ -106,7 +96,6 @@ void DrawScreen(void)
     int boardX = myGM->getBoardSizeX();
     int boardY = myGM->getBoardSizeY();
 
-    //i = row, j = col
     //print gameboard with frame and player
     for (int i = 0; i < boardY; i++)
     {
@@ -130,15 +119,15 @@ void DrawScreen(void)
             {
                 MacUILib_printf("%c", foodPos.symbol);
             }
-            //blank space in gameboard (prints based on above nested for loops - where check increments)
+            
             else if (i == 0 || i == boardY - 1 || j == 0 || j == boardX - 1)
             {
                 //only put in a # around the boarder of the frame   
                 MacUILib_printf("#");
                 
             }
+            //blank space in gameboard (prints based on above nested for loops - where check increments)
             else if (check == 0)
-            //else if ((i > 0 && i < boardY - 1) && (j > 0 && j < boardX - 1))
             {
                 MacUILib_printf(" ");
                
@@ -153,9 +142,11 @@ void DrawScreen(void)
     
     // Check if game is over
     if (myGM->getLoseFlagStatus()){
+        //if snake body hits itself
         MacUILib_printf("YOU LOSE!\n");
     }
     else if(myGM->getExitFlagStatus()){
+        //if the user presss the esc key
         MacUILib_printf("GAME EXITS!\n");
     }
  
@@ -169,10 +160,9 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-
+    //taking variables off the heap
     delete myPlayer;
     delete myGM;
     delete myArrayList;
-
     MacUILib_uninit();
 }
